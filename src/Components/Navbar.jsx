@@ -30,7 +30,7 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Logo/Brand */}
         <Link to="/" className="text-white text-2xl font-bold">
-          🌟 NamasteNerds
+          Hindimebolo
         </Link>
 
         {/* Desktop Menu */}
