@@ -30,6 +30,7 @@ import HomePage from "./Pages/HomePage";
 import Lessons from "./Pages/Lessons";
 import Dashboard from "./Pages/Dashboard";
 import ProtectedRoute from "./utils/ProtectedRoute"; // Updated import path
+import Profile from "./Pages/Profile"; // Updated import path
 
 function App() {
   return (
@@ -54,6 +55,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
             </ProtectedRoute>
           }
         />
