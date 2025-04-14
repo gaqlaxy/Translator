@@ -136,26 +136,49 @@ import { doc, getDoc } from "firebase/firestore";
 
 const Navbar = () => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userDoc, setUserDoc] = useState(null); // To store Firestore user data
+  const [userDoc, setUserDoc] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (user) => {
+  //     if (user) {
+  //       setCurrentUser(user);
+  //       // Fetch user details from Firestore
+  //       const userRef = doc(db, "users", user.uid);
+  //       const userSnapshot = await getDoc(userRef);
+  //       setUserDoc(userSnapshot.data());
+  //     } else {
+  //       setCurrentUser(null);
+  //       setUserDoc(null);
+  //     }
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setCurrentUser(user);
-        // Fetch user details from Firestore
-        const userRef = doc(db, "users", user.uid);
-        const userSnapshot = await getDoc(userRef);
-        setUserDoc(userSnapshot.data());
+        try {
+          const userRef = doc(db, "users", user.uid);
+          const userSnapshot = await getDoc(userRef);
+          setUserDoc(userSnapshot.data());
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
       } else {
         setCurrentUser(null);
         setUserDoc(null);
       }
+      setLoading(false); // Mark loading as done
     });
     return () => unsubscribe();
   }, []);
 
+  if (loading) {
+    return <div className="bg-blue-600 p-4">Loading...</div>;
+  }
   const handleLogout = async () => {
     try {
       await signOut(auth);
