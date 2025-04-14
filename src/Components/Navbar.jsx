@@ -189,7 +189,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 p-4">
+    <nav className="bg-gradient-to-r from-indigo-500 to-purple-500 p-4 fixed top-0 left-0 right-0 z-50">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Logo/Brand */}
         <Link to="/" className="text-white text-2xl font-bold">
@@ -205,6 +205,9 @@ const Navbar = () => {
               </Link>
               <Link to="/dashboard" className="text-white hover:text-gray-200">
                 Dashboard
+              </Link>
+              <Link to="/profile" className="text-white hover:text-gray-200">
+                Profile
               </Link>
               <span className="text-white">
                 Hello, {userDoc?.name || "User"}!
